@@ -14,7 +14,7 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
     @Query(nativeQuery = true, value = "DELETE FROM student_subject WHERE studentID")
     void deleteStudentSubjectByStudentID(@Param("id") Long id);
 
-//    @Modifying
-//    @Query(nativeQuery = true, value = "DELETE FROM student_subject WHERE  subjectID")
-//    void deleteStudentSubjectBySubjectID(@Param("id") Long id);
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM student_subject WHERE  subjectID")
+    void deleteStudentSubjectBySubjectID(@Param("id") Long id);
 }

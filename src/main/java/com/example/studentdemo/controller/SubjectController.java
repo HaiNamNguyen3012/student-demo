@@ -28,23 +28,23 @@ public class SubjectController {
     @GetMapping
     public ResponseEntity<List<Subject>> getAllSubjects(){ return ResponseEntity.ok(subjectService.getAllSubjects());}
 
-//    //Create Subject
-//    @PostMapping
-//    public ResponseEntity<CommonStatus> saveSubject(@RequestBody SubjectDTO subjectDTO){
-//        if(subjectDTO.getId() != null) throw new ResourceNotFoundException("Tạo mới không được có id");
-//        return ResponseEntity.ok(subjectService.saveSubject(subjectDTO));
-//    }
-//
-//    //Update Subject
-//    @PutMapping("")
-//    public ResponseEntity<CommonStatus> updateTeacher(@RequestBody SubjectDTO subjectDTO){
-//        if(subjectDTO.getId() == null) throw new ResourceNotFoundException("Bắt buộc phải có ID");
-//        return ResponseEntity.ok(subjectService.updateSubject(subjectDTO));
-//    }
+    //Create Subject
+    @PostMapping
+    public ResponseEntity<CommonStatus> saveSubject(@RequestBody SubjectDTO subjectDTO){
+        if(subjectDTO.getId() != null) throw new ResourceNotFoundException("Tạo mới không được có id");
+        return ResponseEntity.ok(subjectService.saveSubject(subjectDTO));
+    }
+
+    //Update Subject
+    @PutMapping("")
+    public ResponseEntity<CommonStatus> updateTeacher(@RequestBody SubjectDTO subjectDTO){
+        if(subjectDTO.getId() == null) throw new ResourceNotFoundException("Bắt buộc phải có ID");
+        return ResponseEntity.ok(subjectService.updateSubject(subjectDTO));
+    }
 
     //Delete Subject
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<CommonStatus> deleteSubject(@PathVariable Long id){
-//        return ResponseEntity.ok(subjectService.deleteSubject(id));
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommonStatus> deleteSubject(@PathVariable Long id){
+        return ResponseEntity.ok(subjectService.deleteSubject(id));
+    }
 }

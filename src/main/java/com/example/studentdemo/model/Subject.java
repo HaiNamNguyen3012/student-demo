@@ -29,11 +29,10 @@ public class Subject {
 
     private String teacherName;
 
-    @ManyToMany( cascade = CascadeType.ALL)
-    @JoinTable(name = "student_subject",
-            joinColumns = @JoinColumn(name = "subjectID", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "studentID", referencedColumnName = "id")
-    )
-    private Set<Student> students;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "student_subject",
+//            joinColumns = @JoinColumn(name = "subjectID", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "studentID", referencedColumnName = "id")
+//    )
 
 }

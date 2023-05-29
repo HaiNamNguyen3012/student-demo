@@ -63,8 +63,9 @@ public class StudentService {
         student.setBirthday(studentDTO.getBirthday());
         student.setGrade(studentDTO.getGrade());
         student.setName(studentDTO.getName());
-
+        student.setSex(studentDTO.getSex());
         Student savedStudent = studentRepository.save(student);
+
         //Lưu thông tin môn học của sinh viên
         List<StudentSubject> studentSubjects = new ArrayList<>();
         if(studentDTO.getSubjects() != null){
