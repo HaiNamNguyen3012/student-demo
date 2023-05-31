@@ -31,6 +31,9 @@ public class StudentService {
     //get student by id
     public Student getStudentByID(Long id){
         Optional<Student> student = studentRepository.findById(id);
+//        Student student1 = studentRepository.getById(1); k sd
+        student.get();
+        //Khi lấy dữ liệu trong db, check xem dữ liệu có tồn tại hay không rồi mới dùng hàm get(
         if(!student.isPresent()) throw new ResourceNotFoundException("Không tồn tại sinh viên");
         StudentDTO studentDTO = studentMapper.toDTO(student.get());
         return student.get();
@@ -55,33 +58,40 @@ public class StudentService {
 
     //save student
     public CommonStatus saveStudent(StudentDTO studentDTO){
+        Student student = studentMapper.toEntity(studentDTO);
+        studentRepository.save(student);
         //Lưu thông tin của sinh viên
-        Student student = new Student();
-        student.setBirthday(studentDTO.getBirthday());
-        student.setClassName(studentDTO.getClassName());
-        student.setCountryside(studentDTO.getCountryside());
-        student.setBirthday(studentDTO.getBirthday());
-        student.setGrade(studentDTO.getGrade());
-        student.setName(studentDTO.getName());
-        student.setSex(studentDTO.getSex());
-        Student savedStudent = studentRepository.save(student);
-
-        //Lưu thông tin môn học của sinh viên
-        List<StudentSubject> studentSubjects = new ArrayList<>();
-        if(studentDTO.getSubjects() != null){
-            for(Subject subject : studentDTO.getSubjects()){
-                StudentSubject studentSubject = new StudentSubject();
-                studentSubject.setStudentID(savedStudent.getId());
-                studentSubject.setSubjectID(subject.getId());
-                studentSubjects.add(studentSubject);
-            }
-            studentSubjectRepository.saveAll(studentSubjects);
-        }
+//        Student student = new Student();
+//        student.setBirthday(studentDTO.getBirthday());
+//        student.setClassName(studentDTO.getClassName());
+//        student.setCountryside(studentDTO.getCountryside());
+//        student.setBirthday(studentDTO.getBirthday());
+//        student.setGrade(studentDTO.getGrade());
+//        student.setName(studentDTO.getName());
+//        student.setSex(studentDTO.getSex());
+//        Student savedStudent = studentRepository.save(student);
+//
+//        //Lưu thông tin môn học của sinh viên
+//        List<StudentSubject> studentSubjects = new ArrayList<>();
+//        if(studentDTO.getSubjects() != null){
+//            for(Subject subject : studentDTO.getSubjects()){
+//                StudentSubject studentSubject = new StudentSubject();
+//                studentSubject.setStudentID(savedStudent.getId());
+//                studentSubject.setSubjectID(subject.getId());
+//                studentSubjects.add(studentSubject);
+//            }
+//            studentSubjectRepository.saveAll(studentSubjects);
+//        }
         CommonStatus commonStatus = new CommonStatus();
         commonStatus.setStatus("200");
         commonStatus.setResponse("200");
         return commonStatus;
     }
+
+    //save subject
+//    public CommonStatus saveSubject(Student){
+//
+//    }
 
     //update student
     public CommonStatus updateStudent(StudentDTO studentDTO){
