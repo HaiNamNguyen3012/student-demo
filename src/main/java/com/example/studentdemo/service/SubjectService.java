@@ -92,17 +92,17 @@ public class SubjectService {
         existingSubject.setNumberOfCredit(subjectDTO.getNumberOfCredit());
         Subject savedSubject = subjectRepository.save(existingSubject);
         //Cập nhật thông tin sinh viên của môn học
-//        List<StudentSubject>studentSubjects = new ArrayList<>();
-//        if(subjectDTO.getStudents()!=null){
-//            for(Student student : subjectDTO.getStudents()){
-//                StudentSubject studentSubject = new StudentSubject();
-//                studentSubject.setSubjectID(savedSubject.getId());
-//                studentSubject.setStudentID(student.getId());
-//                studentSubjects.add(studentSubject);
-//            }
-//            studentSubjectRepository.deleteSub;
-//            studentSubjectRepository.saveAll(studentSubjects);
-//        }
+        List<StudentSubject>studentSubjects = new ArrayList<>();
+        if(subjectDTO.getStudents()!=null){
+            for(Student student : subjectDTO.getStudents()){
+                StudentSubject studentSubject = new StudentSubject();
+                studentSubject.setSubjectID(savedSubject.getId());
+                studentSubject.setStudentID(student.getId());
+                studentSubjects.add(studentSubject);
+            }
+            studentSubjectRepository.deleteStudentSubjectBySubjectID(existingSubject.getId());
+            studentSubjectRepository.saveAll(studentSubjects);
+        }
         CommonStatus commonStatus = new CommonStatus();
         commonStatus.setStatus("200");
         commonStatus.setResponse("200");

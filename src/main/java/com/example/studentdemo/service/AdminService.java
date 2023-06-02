@@ -38,15 +38,15 @@ public class AdminService {
     }
 
     //Xóa môn học đăng ký của sinh viên
-    public CommonStatus deleteStudentSubject(Long studentID, Long subjectID){
-        studentSubjectRepository.deleteByStudentIDAndSubjectID(studentID, subjectID);
-
-        CommonStatus commonStatus = new CommonStatus();
-        commonStatus.setStatus("200");
-        commonStatus.setResponse("200");
-
-        return commonStatus;
-    }
+//    public CommonStatus deleteStudentSubject(Long studentID, Long subjectID){
+//        studentSubjectRepository.deleteByStudentIDAndSubjectID(studentID, subjectID);
+//
+//        CommonStatus commonStatus = new CommonStatus();
+//        commonStatus.setStatus("200");
+//        commonStatus.setResponse("200");
+//
+//        return commonStatus;
+//    }
 
 
     //Lấy danh sách môn học của sinh viên

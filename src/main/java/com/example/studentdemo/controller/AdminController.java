@@ -25,10 +25,10 @@ public class AdminController {
     }
 
     //Xóa môn học đăng ký của học sinh
-    @DeleteMapping
-    public ResponseEntity<CommonStatus> deleteStudentSubject(@PathVariable Long studentID, @PathVariable Long subjectID){
-        return ResponseEntity.ok(adminService.deleteStudentSubject(studentID, subjectID));
-    }
+//    @DeleteMapping("{/id}")
+//    public ResponseEntity<CommonStatus> deleteStudentSubject(@RequestParam Long studentID, @RequestParam Long subjectID){
+//        return ResponseEntity.ok(adminService.deleteStudentSubject(studentID, subjectID));
+//    }
 
     //Xem list môn học đăng ký của học sinh
 
