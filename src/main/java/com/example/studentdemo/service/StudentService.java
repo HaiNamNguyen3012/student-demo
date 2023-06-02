@@ -32,7 +32,7 @@ public class StudentService {
     public Student getStudentByID(Long id){
         Optional<Student> student = studentRepository.findById(id);
 //        Student student1 = studentRepository.getById(1); k sd
-        student.get();
+//        student.get();
         //Khi lấy dữ liệu trong db, check xem dữ liệu có tồn tại hay không rồi mới dùng hàm get(
         if(!student.isPresent()) throw new ResourceNotFoundException("Không tồn tại sinh viên");
         StudentDTO studentDTO = studentMapper.toDTO(student.get());

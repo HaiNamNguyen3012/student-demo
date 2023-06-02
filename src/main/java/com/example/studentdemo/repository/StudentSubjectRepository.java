@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StudentSubjectRepository extends JpaRepository<StudentSubject, Long> {
 
@@ -17,4 +19,9 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
     @Modifying
     @Query(nativeQuery = true, value = "DELETE FROM student_subject WHERE  subjectID")
     void deleteStudentSubjectBySubjectID(@Param("id") Long id);
+
+    void deleteByStudentIDAndSubjectID(@Param("id") Long studentID,@Param("id") Long subjectID);
+
+//    @Query(nativeQuery = true, value = "SELECT * FROM student_subject WHERE studentID")
+//    List<StudentSubject> findSubjectsByStudentID(@Param("id") Long id);
 }

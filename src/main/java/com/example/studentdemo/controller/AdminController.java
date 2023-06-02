@@ -6,6 +6,7 @@ import com.example.studentdemo.common.ResourceNotFoundException;
 import com.example.studentdemo.dto.StudentSubjectDTO;
 import com.example.studentdemo.service.AdminService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,15 @@ public class AdminController {
 
     @PostMapping
     public ResponseEntity<CommonStatus> saveStudentSubject(@RequestBody StudentSubjectDTO studentSubjectDTO){
-        if(studentSubjectDTO.getSubjectID() != null) throw new ResourceNotFoundException("Tạo môn học mới không được có id");
+        if(studentSubjectDTO.getId() != null) throw new ResourceNotFoundException("Tạo môn học mới không được có id");
         return ResponseEntity.ok(adminService.saveStudentSubject(studentSubjectDTO));
     }
 
     //Xóa môn học đăng ký của học sinh
-//    @DeleteMapping("/{}");
+    @DeleteMapping
+    public ResponseEntity<CommonStatus> deleteStudentSubject(@PathVariable Long studentID, @PathVariable Long subjectID){
+        return ResponseEntity.ok(adminService.deleteStudentSubject(studentID, subjectID));
+    }
 
     //Xem list môn học đăng ký của học sinh
 
