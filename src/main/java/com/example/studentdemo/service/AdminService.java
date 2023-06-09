@@ -1,6 +1,8 @@
 package com.example.studentdemo.service;
 
 import com.example.studentdemo.common.CommonStatus;
+import com.example.studentdemo.common.ResourceNotFoundException;
+import com.example.studentdemo.dto.StudentDTO;
 import com.example.studentdemo.dto.StudentSubjectDTO;
 import com.example.studentdemo.model.Student;
 import com.example.studentdemo.model.StudentSubject;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -38,24 +41,48 @@ public class AdminService {
     }
 
     //Xóa môn học đăng ký của sinh viên
-//    public CommonStatus deleteStudentSubject(Long studentID, Long subjectID){
-//        studentSubjectRepository.deleteByStudentIDAndSubjectID(studentID, subjectID);
-//
-//        CommonStatus commonStatus = new CommonStatus();
-//        commonStatus.setStatus("200");
-//        commonStatus.setResponse("200");
-//
-//        return commonStatus;
-//    }
+    public CommonStatus deleteStudentSubject(Long studentID, Long subjectID){
+        studentSubjectRepository.deleteByStudentIDAndSubjectID(studentID, subjectID);
+
+        CommonStatus commonStatus = new CommonStatus();
+        commonStatus.setStatus("200");
+        commonStatus.setResponse("200");
+
+        return commonStatus;
+    }
 
 
     //Lấy danh sách môn học của sinh viên
-//    public List<Subject> getSubjectsByStudentID(Long studentID){
-//        Optional<Student> optionalStudent = studentRepository.findById(studentID);
-//        if(optionalStudent.isPresent()){
-//            Student student = optionalStudent.find;
-//            List<StudentSubject> studentSubjects = studentSubjectRepository.findSubjectsByStudentID(studentID);
-//
-//        }
-//    }
+    public Set<Subject> getSubjectsByStudentID(Long studentID){
+        Optional<Student> optionalStudent = studentRepository.findById(studentID);
+        if(!optionalStudent.isPresent()) throw new ResourceNotFoundException("Không tìm thấy sinh viên");
+        Student student = optionalStudent.get();
+        return student.getSubjects();
+    }
+
+    //Lấy danh sách sinh viên của môn học
+    public List<StudentDTO> getAllStudentsBySubjectID(Long subjectID){
+        //Tìm list studentID dựa vào subjectID
+        List<Student> students = new ArrayList<>();
+        List<Long> studentids = studentSubjectRepository.studentId(subjectID);
+        for (Long studentid : studentids) {
+            //Tìm Student dựa vào StudentID
+            Optional<Student> student = studentRepository.findById(studentid);
+            //check xem có tồn tại hay k
+            students.add(student.get());
+        }
+        List<StudentDTO> studentDTOs = new ArrayList<>();
+        for(Student student: students){
+            StudentDTO studentDTO = new StudentDTO();
+            studentDTO.setBirthday(student.getBirthday());
+            studentDTO.setClassName(student.getClassName());
+            studentDTO.setCountryside(student.getCountryside());
+            studentDTO.setBirthday(student.getBirthday());
+            studentDTO.setGrade(student.getGrade());
+            studentDTO.setName(student.getName());
+            studentDTO.setSex(student.getSex());
+            studentDTOs.add(studentDTO);
+        }
+        return studentDTOs;
+    }
 }
